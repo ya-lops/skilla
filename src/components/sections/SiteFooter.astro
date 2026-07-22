@@ -1,0 +1,153 @@
+---
+import type { BrandData } from "@/types/brand";
+
+import { STORAGE_PATH } from "@/lib/consts";
+
+import BlockMessengersLinks from "../blocks/BlockMessengersLinks.astro";
+import BlockAppSkilla from "../blocks/BlockAppSkilla.astro";
+
+interface Props {
+  brandData: BrandData;
+}
+
+const { brandData } = Astro.props;
+
+const workTime = [
+  {
+    text: "Прием заказов",
+    value: brandData.main.site_work_time,
+  },
+  {
+    text: "",
+    value: brandData.main.site_work_time_1,
+  },
+  {
+    text: "",
+    value: brandData.main.site_work_time_2,
+  },
+];
+---
+
+<footer data-cmp="SiteFooter">
+  <div class="bg-footer-top-surface">
+    <div class="container">
+      <div class="flex flex-col xl:flex-row items-start gap-8 justify-between py-10">
+        <div class="flex flex-col gap-8">
+          <div class="_footer-logo">
+            <a href="/">
+              <img src={brandData.default.logo || "/images/logo-main.webp"} alt={`Логотип компании ${brandData.default?.name}`} />
+            </a>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            {
+              brandData.main.site_phone && (
+                <a class="typo-t1 text-text-primary-inverse hover:underline!" href={`tel:${brandData.main.site_phone}`}>
+                  {brandData.main.site_phone}
+                </a>
+              )
+            }
+            {
+              brandData.main.site_phone2 && (
+                <a class="typo-t1 text-text-primary-inverse hover:underline!" href={`tel:${brandData.main.site_phone2}`}>
+                  {brandData.main.site_phone2}
+                </a>
+              )
+            }
+
+            <a class="text-text-tertiary-inverse hover:underline!" href={`mailto:${brandData.main.site_email}`}
+              >{brandData.main.site_email}</a
+            >
+          </div>
+
+          <BlockMessengersLinks {brandData} class="text-text-secondary-inverse"/>
+
+          {
+            workTime && (
+              <div class="text-text-tertiary-inverse">
+                {workTime.map((i: any) => (
+                  <p class="not:last:mb-1">
+                    {i.text}: {i.value}
+                  </p>
+                ))}
+              </div>
+            )
+          }
+        </div>
+
+        <nav
+          class="grid grid-cols-1 lg:grid-cols-[repeat(2,minmax(240px,1fr))] gap-8 text-footer-top-text"
+          aria-label="Навигация в подвале"
+        >
+          <div class="flex flex-col items-start gap-10">
+            <div class="_footer-nav-group flex flex-col gap-4 [&_a]:hover:underline!">
+              <h3 class="typo-h5 text-left">Услуги</h3>
+              <ul class="flex flex-col gap-4">
+                {
+                  brandData.services.map((service) => (
+                    <li>
+                      <a class="typo-t3" href={`/${service.url.toLocaleLowerCase()}`}>
+                        {service.name}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-start gap-10">
+            <ul class="flex flex-col gap-10">
+              <li><a class="typo-h5 hover:underline" href="/about">О компании</a></li>
+              <li><a class="typo-h5 hover:underline" href="/blog">Блог</a></li>
+              <li><a class="typo-h5 hover:underline" href="/contacts">Контакты</a></li>
+              {
+                brandData.vacancies?.vacancy_link && (
+                  <li>
+                    <a class="typo-h5 hover:underline" href={brandData.vacancies?.vacancy_link} target="_blank" rel="noopener noreferrer">
+                      Сотрудничество
+                      <span class="sr-only">(откроется в новой вкладке)</span>
+                    </a>
+                  </li>
+                )
+              }
+            </ul>
+
+            <div class="_footer-nav-group flex flex-col gap-4">
+              <h3 class="typo-h5 text-left">Скачать</h3>
+              <ul class="flex flex-col gap-4">
+                {
+                  brandData.main.site_documents.map((document) => (
+                    <li class="_footer-document flex items-baseline gap-2">
+                      <span class="_footer-document-name flex gap-2">{document.name}</span>
+                      <a
+                        class="_footer-document-format-link py-0.5 px-1.25 rounded-md border border-transparent bg-surface-secondary-inverse hover:border-outline hover:no-underline typo-label"
+                        href={`${STORAGE_PATH}${document.path}`}
+                        download={document.filename}
+                      >
+                        .{document.filename.split(".").pop()}
+                        <span class="sr-only"> — скачать {document.name}</span>
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <BlockAppSkilla />
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-footer-bottom-surface">
+    <div class="container">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 py-6 text-footer-bottom-text typo-t4">
+        <p>{brandData.default.name} – {new Date().getFullYear()} г.</p>
+        <p>Информация на данном сайте носит информационный характер и не является офертой. ст. 437 ч. 1 ГК РФ</p>
+        <a class="hover:text-primary-inverse hover:underline" href="/policy">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </div>
+</footer>

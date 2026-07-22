@@ -1,0 +1,62 @@
+---
+import type { BrandData } from "@/types/brand";
+
+import { STORAGE_PATH } from "@/lib/consts";
+
+interface Props {
+  brandData: BrandData;
+}
+
+const { brandData } = Astro.props;
+---
+
+<section class="testimonials py-8 md:py-10 lg:py-20" data-cmp="Testimonials">
+  <div class="container">
+    <div class="_testimonials-inner">
+      <h2 class="_testimonials-title mb-8 md:12 lg:mb-16">Отзывы наших клиентов</h2>
+      <div class="_testimonials-grid grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
+        {
+          brandData.feedbacks?.map((testimonial: any) => (
+            <div class="_testimonials-card flex flex-col items-start gap-6 p-10 border border-outline rounded-[1.25rem] text-text-secondary">
+              <div class="_testimonials-avatar flex items-center justify-center w-19 aspect-square mb-4 rounded-sm overflow-clip">
+                {testimonial.avatar ? (
+                  <img class="w-full h-full object-cover" src={`${STORAGE_PATH}${testimonial.avatar}`} alt={`Аватар ${testimonial.name} `} loading="lazy"/>
+                ) : (
+                  <svg
+                    width="35"
+                    height="42"
+                    viewBox="0 0 35 42"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <rect width="35" height="42" fill="url(#pattern0_261_3898)" />
+                    <defs>
+                      <pattern id="pattern0_261_3898" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use xlink:href="#image0_261_3898" transform="matrix(0.0190174 0 0 0.0158794 -4.19979e-08 -0.206992)" />
+                      </pattern>
+                      <image
+                        id="image0_261_3898"
+                        width="252"
+                        height="100"
+                        preserveAspectRatio="none"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPwAAABkCAYAAACinl1JAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAABB5SURBVHgB7Z1NbFxXFYDPvW8cT+iirymoUCQ8YYVAJI4qWLXJ2KEg1LpJNlkVZSLROD+V6mwLkscLNnQRW2p+HCHZoSxQN3HiIiTS2JMCCypQ7EosQIKMWZQi2uZlQTxxPPdyzn1vHP/MzLvvZ56d5HyS7bF9582buffcc+45554LwDAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzBbDwEpo2fdolJQlBJ246+9WoOLP91VrziHL+rhozn8uoFfFdHnecAwTMdJReBJyPHHARTuEqwWbtvnC5iUAJdQ8CvAMEzHSCTwgaAPo6AXIR2qwoGy2OddAoZhUieWwKOgu2i2l4WAN6ADBBp/BDV+FRiGSY3IAo/CXkCNPosPC9BZqjihHGUzn2HSQ0ZpjMJOTrib0HlhJ8zEUr/uDgHDMKlgreEDYSfNHtkplxR83dPOfm8UGIZJhJXAB2Y8afbMhb0BmveH0LyfAoZhYhMq8OSgy9CMb4eHQr+HHXkMEx+bNfwZ2HxhJ2jimQCGYWLTVsOvctLFwqvl4V93noKP/vOs+b3nydvw7Wc+Bjdfg7jwep5h4tNW4NWMewtiaPcPFr4OP/vgRfg9/mzGri9/DKe+8wf40e6/QAzItN/J6bgME52WAk9ZdIFX3poF7yk4Nn24paCv52uo8d89fAl2PfNviAIKfBkFfgQYholEO4G/jAJ/ECz56JNn4QfvDMKde3mIyvjAu1G1vSf7cXZhGCYSTZ12QRjOWthJs8cVdmIQrYLpv38zylPcII+fYZgItPLSFyECSYS9wbGrh8GLdo0DwDBMJFoJ/D6w5J3554wnPil3atvh7J+et26f4g49hnlsaG7Sa+gFS8gbnxZvf/h8FC3fS0lBwDCMNa00vJXAz3/ylVS0ewPS8u/97Vv2T9gGTwLDMNZsEHhy2IEljYSaNJmPcs179pYIwzAAOUhAmtp95ZpeBCtdwGNv0rvFCXcJlop1R/eIxlJMy4L5KVRVgPA0hTEVzCtQc7XKiSowm0ajv5Sp+agLWghXKOGu9JWAubpcnr9/7dQcdIBEAt8JyKzPmu3942e0FplZC1rouXszg6chJjRoanJpCITYV9NLRfqb0KtSKlDygwfQeKSMLSch3z9exTuogNIjUYQ/v3/8CChRatdGOWp06f3jVyAG5j2J+5fbtWn2ueX7LkZKDksLIbS3ODN4yLZ9/nvni6Cd4UZ/BVfxu8r/5vcVfnPqOXConwSUoa5urO6nsPcbdl+JBP7J7vg58S2vmV+0b6whlfRa/IwP4odegIwQWkMc8sXzBZA4aGCpZP4Q7zoFvIMSSFHCwVMBXT9qJfganyd0sV0TqcUkxKQGNdRystiuTdPPLeSeOgXeSdWmXVfxbK/jdJ3BCbYIEKm/Cth8EqSs4mRbrl0f9Os8hrzfsPtq5rSzFqIe9zakTcQ028cmnx41c1lLeRO7tARpQYNHylv54ngZmNTp7h8fcmTuJk7MRYiPEfy0+miDhqdNKWrGJUEKXR+/0PNPo+WTJt2sZi9e0xoB8/CIY7S640zQoEn9EIEGEoZxQEGtMlgGJhW2910c1aDTK/KKfYQTSOKoVKuwnJXDwEXzm3a+pQVZDC/YC7z3qO+Y8014OZtQQ9hhBtQ5rh+YAkbYRYrCHoATfuL+aSrwQkAFLHnrxWlIi5/svRaleUe8mFuFFWHPtPiIM0zOM2BiY5ZeHRD2tGil4W+AJaTh39z7PiTl1d1/hld32e+Yw0lpEh5hcL2eeaUh1CAuOgS37GDd6nyhOE4bzoZhC9PUS0+14G3X8cRPUTNTTP5X889BHMiU//n3I1sK1pOSBQXYQuT7z5cA7HcrUpwdPdhzWsIUxXJlXZqlTt2po8NH0Nrf+lo4kxbxO9caiEgQKj0D8cAQnK7SAwoPiw4Wi20ZlkMNOopRkDJYcnHgXXTgLcLZD+03wBB7e/4Bvz78S3CjhPg0Duz+7IpZGoHCGLD9E4zQJEBaaQlzXwpGt8O2Ma9ytJU/Y4yWB0I4l9HUDM812KQwV2yErli3tekX2+vpteEvkxcRRXFoeh1Zzuuu+fV9Z5ZztGNV4DgQ6SqjdnH4MfCdBNazzVuopXejiU8bahZC6lNQXbs39/4OXv/uHyEqNBlBhpD2rM0c77Np66+9xS2ISaDdC6ENccAJrfoohh42VVIb1EB9i2Lplo32yPf/oqc28+MFeAioXbfrFwLX12GB8GqU661c1xfQI1aNzUQhSrXZQWOhNuu7IC9ikr7wnmnyL0NKtNbw6AHXs24kLU/QOpy+qK4dFbX46JOvrqTgkgWw65mPYeAbfzXeeDdO4g5p9/1emub8FsNCu9OgCYQdLCEtsr1/fFKn4Oll1iHNVu1CaLsY/VabGRxBoaeHZUiBsEw70vIliLHGpXh6pJi6JUJC7JTUrc4TxYu9dQjP+JNaDt2tDFahQ+SVcyf9HMpHGOEcCct69P0s0YS9AQk9Ttau7lRYrgFpeTrQEbYIQfHKKmSMFtlk9C07KrzwCK797lZei5Wvri2cdzhu59r4A5h1mDCmTZ6E0uUkG5cWaQ+BtkvnbUdoLj157APTfnNNQd9Rl7r3OFh/tUVklMIr0akUmm0dM1+d4sNgYalFck6uR5s15yQ8RtRytd5gZ1JrUFDvVY6PQUK01KNCi0T+K6vNMyj0p+sz7lPC1jGRPlU05beMpdE5RCF0g4WEMpp3vVqpK3nIt9XGfqiodjAwOYtgg9IckosAhtF2h6Y8R4kktGF7vfsSRgM6L/CE0++VUOhhE4SezonvexwOnlC4frfIly+YtZyUQzVYog0auDYUvlYWqko/zB5rDb34/4JZtdnuqlNQ5v3y0UCrrBD26dIed0gB3/F6cU6DRXi1BZG2x5LQo3l/O0PzvhKcGrupwk7JLJABcRIuzHNWYuf+dCFi7JqlSWOxcoy1e0RQ+NywM1mFkimmgZsEndgCb3OY5BrIvKfz3aDD61qKtct+r+Oa3QEnVMj0o74NFx2B3borcvyZyR6cYBKNxdyO6ZOUO02D3lNaL3Q5ovrfl861nZHoMEfU9FNoAg6juVKCdKngfEne+Exi7fVc3Q11ujyiNDL1apXjIxyG6xxKq9RSZdHadOOVT/Ehk55upky/SFSrdQWAkwAOBjGHpmFFCXHFG3i7suGF/fDYUT3jUjIHPb8IyfAFvT/bpBqMabsqrJFIHg6xpAohnnQjpAlzrU2NO8rkUmqM1+zJCGoGtm/jpJkeKwoRK+esIaeWt43J3NKGFFpBjgEBvRL00I6rJ6v4p4qqqxHv0IXqmna+gPYF1W4PBEdUFcGOKk4qU/g6U1kLeoM66B4RsgYDJaqQAf7g0SFtnF5wVAHquG6ntbsSBct866qpZSdEZXt92xWOtaeDErq6pp5gE4ROp7qyibrAUqJr5bxDox5qdHL1l1u28gdUSeZkCYV/sqng+xqfYo1j5oAITVU5yaG04c1WTQKBgPmt4Hm38bJmhQaFS6n2xTS1WD5475qJ6dIEaZxsNBD+B3cLTleXXxFFBdl6UlTr9+/feQK+UF0t4J0y33HYj2pHTEEMlBauVCrWczcTIfQ8hAg8WssHsY9OJ51kTYgVki0/jZeetLzILZWETQqtaAj+qVFVr4+tF3zTxBfkhsaOlRWWFRjC6g0LW9GOpizWuBS+CfOwo8eXLKg1SRzBQJq7/+BPa6ylrGZVuv/atWOxLLWg4Ac8bOSX83MYG2/bZlWdgYRRELtdlG2vQN9IyzugoiW2CD0kHTnrTh8vQgf50m9O9pJjESeYM09Pn7z81PSpVF9T6/YxTVrvZmX+iroOnxzRjOdSVFsHMzZwmRTWTksYssnqbIVtpmQYK1PqpwMX0EGno21MQVNfAgn9yTKkyBenXy+SgKOg30Yn4k380yhNMCYXXOuCh/cKKUC1wsMcYLQ1FjLCONAsBg+VokoyeAgqn8zlrNIBl2KhSxEzzqScjdNvgbCnUklnjQ3lvXx+VGtxCSKCFxne8d7JCUgICfrTqMEVqFkScGgijDrNMs3KCc8atBLAFKnXQz//VYOnCDGg8slS5mYX5VLiPmP8lFfLXI1CFKGnCZkKYkIEYdchCmzj2XL1riEKyUFUNJTQ3L7pXh6KrDXc3x4vNAQdBbrY+jXEqPfK+VS8+aThrGq862wFHrX8pOWuKH/w9F+Y6HrxbKjnlgZP9/4Lb6C2oCIYZ2jSoNJX+f6LLPQJIbOeHJaWzQvmLADst1YTNk0IpNXRN3AzakFM6td2imBDai2t51Fo+yB3f1ZEzNk17fF5+HCP7XN2vHdiCJbFsJ+i2Br0q1VxMort9KDBjub5Hf8+5W6rvcX4mrXZY6lMMJFw0J+iTMVaC0TJqedKdDRR4PTDyVotrPyX3is6Jhf1Ui+Gj5p8xrqEQg+1mWPRfDjMGvJq2xhaTEP2ORLB6T/94yatuZFfofwTkJIttaScoNNqoK4WcMntKgm9tRn/zIGmblESer3c1Ydx4QpEhITe1rzfQWt/Lajwn4Wwqz66L4iJv61QTtCXdSGBlHY5RaX2/olKBI3RoCD8HIhy432uvFf/EIs2n7ERetb0CSAt76h4OzpNrUF0xtLPpElVAYXgmKpZFHY6r29lSdAyDkLC9dnAWcqvLkNU0LzfcfVEW6Ha4Tv6QtcmD4R9Y/iv42ziVlEqeLCyCy4TWOiTcrcyOBVjos6U0MDn5wPnRpSGo7aH560gxJlW4bOHQthBT2522iltaMlU6NESSOr9f9wJKtNEdnzbknQ8WGU6eK+cm9Q51YdCPAkRkFpOrHfimTW7jbCDruj6tj2bIuzkNNsChSDITFycPbYnC61hBlLMmmvMWmqzg6VOCD2Ng6S7Gq1Tm7wfXqh+/vLZo7gmwAFouballNzcg5NMyBuPC5YwYfcUrjtvD5xPtGaPTYzKop3GaA2FjrwUapo1ozGQWNjTwwh9iuWlqY9oHESMCGwgci6j99K5uc9QGCWVTLLQ+PgCQw0tL5ZlOwcdCXpZLW/b6Q2cS1z/KxZ0OMAW1XIUrsNBtFNTfkJagm/eryg2BhIwqULVZnGi3pmkv8zORgWHzKQf0K22jcQ17SNVvFnNp348/AZq7RG4L4tCwAHh75JbL9Auafmnr55caFI1lXaHzWE0YAoF/VJHNbq/Yaew8c8UDtFToOVk43CAxIR49wXEX4fdu242ztBpMiUt5QF8HJotuJrG1litxVSk96sw1OeERG3qegGS0MHPzeb6nbCgAuWxk/oLP78jEU4lwmUlTDY7VYh+p4NF7omlYbvw8oP3LSBl3Muv9YLs6pEY+wMT99UuxoddnJGq4JcD8ugcLUUpq/Xu+SzNdkq2aewoo11kjuy+/bCcsNIO875A4ucue/AzLmgQrhDafTCARdXs6ddO5VF4vw8zlAC1BMv7lFSU+FUgJYSTLykdz2yPpvp3EfqpcSyVkHK3otBs0O90LX/rbm6K+5xhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGOah4P/cjApAObDlTQAAAABJRU5ErkJggg=="
+                      />
+                    </defs>
+                  </svg>
+                )}
+              </div>
+
+              <p class="_testimonials-name typo-h4">{testimonial.name}</p>
+
+              <p class="_testimonials-text typo-t2">{testimonial.feedback}</p>
+
+              <p class="_testimonials-date text-text-tertiary typo-label">{testimonial.date ?? "12.03.2025"}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+

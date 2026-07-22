@@ -1,0 +1,142 @@
+/* @layer base {
+  :root {
+    --color-accent: hsla(48, 100%, 50%, 1);
+    --color-outline: hsla(0, 0%, 87%, 1);
+
+    --color-text-primary: hsla(0, 0%, 27%, 1);
+    --color-text-primary-inverse: hsla(0, 0%, 100%, 1);
+    --color-text-secondary: hsla(0, 0%, 27%, 0.6);
+    --color-text-secondary-inverse: hsla(0, 0%, 100%, 0.8);
+    --color-text-tertiary: hsla(0, 0%, 27%, 0.4);
+    --color-text-tertiary-inverse: hsla(0, 0%, 100%, 0.6);
+
+    --color-surface-primary: hsla(0, 0%, 100%, 1);
+    --color-surface-primary-inverse: hsla(240, 3%, 24%, 1);
+    --color-surface-secondary: hsla(235, 22%, 94%, 1);
+    --color-surface-secondary-inverse: hsla(240, 3%, 20%, 1);
+    --color-surface-blur: hsla(240, 3%, 15%, 0.75);
+
+    --color-input-surface: hsla(0, 0%, 93%, 1);
+    --color-input-outline: hsla(0, 0%, 93%, 1);
+    --color-input-outline-inverse: hsla(0, 0%, 100%, 0.2);
+    --color-input-surface-focus: hsla(0, 0%, 96%, 1);
+    --color-input-outline-focus: hsla(0, 1%, 72%, 1);
+    --color-input-surface-focus-inverse: hsla(0, 0%, 100%, 0.4);
+
+    --button-color-surface-primary: hsla(0, 1%, 16%, 1);
+    --button-color-surface-primary-inverse: hsla(0, 0%, 100%, 1);
+    --button-color-surface-accent: hsla(48, 100%, 50%, 1);
+    --button-color-surface-accent-inverse: hsla(54, 99%, 51%, 1);
+    --button-color-border: hsla(0, 0%, 87%, 1);
+    --button-color-border-inverse: hsla(0, 0%, 100%, 0.3);
+
+    --color-mobile-menu-surface: var(--color-surface-primary-inverse);
+    --color-mobile-menu-text: var(--color-text-primary-inverse);
+
+    --color-toast-surface: var(--color-surface-blur);
+    --color-toast-text: var(--color-text-primary-inverse);
+    --color-toast-success-text: var(--color-text-primary-inverse);
+    --color-toast-success-bg: var(--color-surface-primary-inverse);
+    --color-toast-success-border: var(--color-text-tertiary-inverse);
+    --color-toast-error-text: var(--button-color-surface-accent-inverse);
+    --color-toast-error-bg: var(--color-surface-primary-inverse);
+    --color-toast-error-border: var(--button-color-surface-accent-inverse);
+
+    --color-promo-surface: var(--button-color-surface-accent);
+    --color-promo-text-primary: var(--color-text-primary);
+    --color-promo-text-secondary: var(--color-text-secondary);
+
+    --color-hero-main-surface: var(--color-surface-secondary);
+    --color-hero-main-text: var(--color-text-primary);
+
+    --color-hero-about-surface: var(--color-surface-secondary);
+    --color-hero-about-text: var(--color-text-primary);
+
+    --color-cta-surface: var(--color-surface-primary-inverse);
+    --color-cta-text: var(--color-text-primary-inverse);
+
+    --color-kp-surface: var(--color-surface-secondary);
+    --color-kp-text: var(--color-text-primary);
+    --color-kp-text-accent: var(--color-text-tertiary);
+
+    --color-header-surface: var(--color-surface-primary-inverse);
+    --color-header-text: var(--color-text-primary-inverse);
+
+    --color-footer-top-surface: var(--color-surface-primary-inverse);
+    --color-footer-top-text: var(--color-text-primary-inverse);
+    --color-footer-bottom-surface: var(--color-surface-secondary-inverse);
+    --color-footer-bottom-text: var(--color-text-tertiary);
+
+    --color-appskilla-surface: hsla(240, 3%, 15%, 1);
+    --color-appskilla-text: var(--color-text-primary-inverse);
+    --color-appskilla-border: #343743;
+
+    --color-table-highlight: var(--color-surface-primary-inverse);
+    --color-table-highlight-heading: var(--color-text-primary-inverse);
+    --color-table-yes: var(--button-color-surface-accent-inverse);
+    --color-table-yes-accent: var(--button-color-surface-accent);
+    --color-table-no: var(--color-text-tertiary);
+
+    --color-table-highlight: var(--color-surface-primary-inverse);
+    --color-table-highlight-heading: var(--color-text-primary-inverse);
+    --color-table-yes: var(--button-color-surface-accent-inverse);
+    --color-table-yes-accent: var(--button-color-surface-accent);
+    --color-table-no: var(--color-text-tertiary);
+
+    --color-button-accent-surface: var(--button-color-surface-accent);
+    --color-button-accent-text: var(--color-text-primary);
+    --color-button-accent-border: var(--button-color-surface-accent);
+    --color-button-accent-surface_hover: var(
+      --button-color-surface-accent-inverse
+    );
+    --color-button-accent-text_hover: var(--color-text-primary);
+    --color-button-accent-border_hover: var(
+      --button-color-surface-accent-inverse
+    );
+
+    --color-button-accent-inverse-surface: var(--button-color-surface-accent);
+    --color-button-accent-inverse-text: var(--color-text-primary);
+    --color-button-accent-inverse-border: var(--button-color-surface-accent);
+    --color-button-accent-inverse-surface_hover: var(
+      --button-color-surface-accent-inverse
+    );
+    --color-button-accent-inverse-text_hover: var(--color-text-primary);
+    --color-button-accent-inverse-border_hover: var(
+      --button-color-surface-accent-inverse
+    );
+
+    --color-button-primary-surface: var(--button-color-surface-primary);
+    --color-button-primary-text: var(--color-text-primary-inverse);
+    --color-button-primary-border: var(--button-color-surface-primary);
+    --color-button-primary-surface_hover: var(--button-color-surface-accent);
+    --color-button-primary-text_hover: var(--color-text-primary);
+    --color-button-primary-border_hover: var(--button-color-surface-accent);
+
+    --color-button-primary-inverse-surface: var(--color-surface-primary);
+    --color-button-primary-inverse-text: var(--color-text-primary);
+    --color-button-primary-inverse-border: var(--color-surface-primary);
+    --color-button-primary-inverse-surface_hover: var(
+      --button-color-surface-accent-inverse
+    );
+    --color-button-primary-inverse-text_hover: var(--color-text-primary);
+    --color-button-primary-inverse-border_hover: var(
+      --button-color-surface-accent-inverse
+    );
+
+    --color-button-secondary-surface: transparent;
+    --color-button-secondary-text: var(--color-text-primary);
+    --color-button-secondary-border: var(--button-color-border);
+    --color-button-secondary-surface_hover: var(--button-color-surface-primary);
+    --color-button-secondary-text_hover: var(--color-text-primary-inverse);
+    --color-button-secondary-border_hover: var(--button-color-surface-primary);
+
+    --color-button-secondary-inverse-surface: transparent;
+    --color-button-secondary-inverse-text: var(--color-text-primary-inverse);
+    --color-button-secondary-inverse-border: var(--button-color-border-inverse);
+    --color-button-secondary-inverse-surface_hover: var(
+      --color-surface-primary
+    );
+    --color-button-secondary-inverse-text_hover: var(--color-text-primary);
+    --color-button-secondary-inverse-border_hover: var(--color-surface-primary);
+  }
+} */

@@ -1,0 +1,89 @@
+---
+import type { BrandData } from "@/types/brand";
+
+import BlockMessengersLinks from "../blocks/BlockMessengersLinks.astro";
+import Button from "@/components/ui/Button.astro";
+import MobileNav from "@/components/blocks/MobileNav.astro";
+
+interface Props {
+  brandData: BrandData;
+}
+
+const { brandData } = Astro.props;
+
+const firstServiceUrl = brandData.services[0].url.toLowerCase();
+const serviceUrls = brandData.services.map((s) => s.url.toLowerCase());
+const currentPath = Astro.url.pathname;
+
+const isServicePage = serviceUrls.some((url) => currentPath === `/${url}` || currentPath === `/${url}/`);
+
+const links = [
+  { href: `/${firstServiceUrl}`, label: "Услуги и цены", active: isServicePage },
+  { href: "/about", label: "О компании", active: currentPath.includes("/about") },
+  { href: "/blog", label: "Блог", active: currentPath.includes("/blog") },
+  { href: "/contacts", label: "Контакты", active: currentPath.includes("/contacts") },
+];
+---
+
+<div x-data="{ mobileNavOpen: false }" class="sticky top-0 z-5" data-cmp="SiteHeader">
+  <header class="bg-header-surface text-header-text">
+    <div class="container">
+      <div class="_header-inner flex items-center justify-between gap-4 py-4 lg:py-6">
+        <div class="_header-logo">
+          <a href="/">
+            <img
+              class="max-h-8 lg:max-h-12.5 w-auto"
+              src={brandData.default.logo || "/images/logo-main.webp"}
+              alt={`Логотип компании ${brandData.default?.name}`}
+            />
+          </a>
+        </div>
+
+        <div class="hidden lg:contents">
+          <nav aria-label="Основная навигация">
+            <ul class="flex items-center gap-8">
+              {
+                links.map(({ href, label, active }) => (
+                  <li>
+                    <a
+                      href={href}
+                      class:list={[
+                        "relative flex items-center no-underline text-inherit py-3",
+                        "after:content-[''] after:absolute after:inset-0 after:top-auto after:h-0.75 after:rounded-2xl after:bg-(--_c,transparent) after:transition-colors after:duration-125",
+                        { "[--_c:var(--color-accent)]": active, "hover:[--_c:var(--color-text-secondary-inverse)]": !active },
+                      ]}
+                      aria-current={active ? "page" : undefined}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+
+          <BlockMessengersLinks {brandData} />
+
+          <div class="_header-contact-actions flex items-center gap-4">
+            <Button href="#contact" text="Позвонить" variant="accent" />
+            <Button href="#personal" text="Личный кабинет" variant="secondary" inverse />
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="flex h-10 w-10 items-center justify-center lg:hidden"
+          @click="mobileNavOpen = true"
+          aria-label="Открыть меню"
+          aria-haspopup="dialog"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <MobileNav brandData={brandData} links={links} />
+</div>

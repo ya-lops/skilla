@@ -1,0 +1,87 @@
+---
+import Button from "@/components/ui/Button.astro";
+import FormInputKp from "@/components/ui/FormInputKp.astro";
+import FormCheckbox from "@/components/ui/FormCheckbox.astro";
+---
+
+<div x-data="kpForm()" class="relative" data-cmp="KpForm">
+  <form class="_kp-form flex flex-col gap-3 py-4 lg:py-12.5" @submit.prevent="submitForm()" novalidate>
+    <FormInputKp id="kp-name" label="Имя" model="form.name" errorModel="errors.name" required />
+    <FormInputKp id="kp-phone" type="tel" label="Телефон" placeholder="Телефон" model="form.phone" errorModel="errors.phone" required />
+    <FormInputKp id="kp-email" type="email" label="Почта" model="form.email" errorModel="errors.email" required />
+    <FormInputKp id="kp-inn" label="ИНН" model="form.inn" errorModel="errors.inn" required />
+    <FormCheckbox id="kp-agreement" model="form.agreement" errorModel="errors.agreement">
+      Соглашаюсь с <a href="/policy" class="underline">политикой обработки персональных данных</a>
+    </FormCheckbox>
+    <Button tag="button" type="submit" variant="accent" :disabled="submitting">
+      <span x-text="submitting ? 'Отправка...' : 'Получить КП'"></span>
+    </Button>
+  </form>
+
+  <script is:inline>
+    function kpForm() {
+      return {
+        form: {
+          name: "",
+          phone: "",
+          email: "",
+          inn: "",
+          agreement: false,
+        },
+        errors: {
+          name: false,
+          phone: false,
+          email: false,
+          inn: false,
+          agreement: false,
+        },
+        submitting: false,
+
+        validate() {
+          this.errors.name = this.form.name.trim().length < 2;
+
+          const phoneDigits = this.form.phone.replace(/\D/g, "");
+          this.errors.phone = phoneDigits.length !== 11;
+
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          this.errors.email = !emailRegex.test(this.form.email.trim());
+
+          const innDigits = this.form.inn.trim();
+          this.errors.inn = !(innDigits.length === 10 || innDigits.length === 12);
+
+          this.errors.agreement = !this.form.agreement;
+
+          return !Object.values(this.errors).some(Boolean);
+        },
+
+        submitForm() {
+          const isValid = this.validate();
+
+          if (!isValid) {
+            return;
+          }
+
+          this.submitting = true;
+
+          setTimeout(() => {
+            this.submitting = false;
+            const isError = Math.random() < 0.3;
+
+            if (isError) {
+              this.$dispatch("show-toast", {
+                message: "Произошла ошибка. Попробуйте позже",
+                type: "error",
+              });
+            } else {
+              this.$dispatch("show-toast", {
+                message: "Заявка отправлена!",
+                type: "success",
+              });
+              this.form = { name: "", phone: "", email: "", inn: "", agreement: false };
+            }
+          }, 800);
+        },
+      };
+    }
+  </script>
+</div>

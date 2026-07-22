@@ -1,0 +1,45 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PriceTable from "@/components/sections/PriceTable.astro";
+import CalculatorForm from "@/components/sections/CalculatorForm.astro";
+import Blog from "@/components/sections/Blog.astro";
+import KP from "@/components/sections/KP.astro";
+import FAQ from "@/components/sections/FAQ.astro";
+import Breadcrumbs from "@/components/ui/Breadcrumbs.astro";
+
+import { getBrandData } from "@/lib/api";
+
+export async function getStaticPaths() {
+  const brandData = await getBrandData();
+  const firstServiceUrl = brandData.services[0]?.url?.toLowerCase();
+
+  return brandData.services
+    .filter((s) => s.is_active === 1)
+    .map((service) => ({
+      params: { service: service.url },
+      props: { service, brandData, firstServiceUrl },
+    }));
+}
+
+const { service, brandData, firstServiceUrl } = Astro.props;
+
+// Ищем мета-данные для страницы услуги
+const pageMeta = brandData.meta?.find((m) => m.url === service.url);
+---
+
+<BaseLayout
+  {brandData}
+  metaTitle={pageMeta?.title || service.name}
+  metaDescription={pageMeta?.description || service.description}
+  metaKeywords={pageMeta?.keywords || ""}
+>
+  <Breadcrumbs
+    items={[{ label: "Главная", href: "/" }, { label: "Услуги и цены", href: `/${firstServiceUrl}` }, { label: service.name }]}
+  />
+
+  <PriceTable {brandData} currentService={service} />
+  <CalculatorForm {brandData} />
+  <Blog {brandData} />
+  <KP {brandData} />
+  <FAQ {brandData} />
+</BaseLayout>

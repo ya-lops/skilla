@@ -1,0 +1,254 @@
+---
+import CalcInput from "@/components/ui/CalcInput.astro";
+
+interface Props {
+  brandData: any;
+}
+
+const { brandData } = Astro.props;
+
+import { getGlobalMinPriceWithDiscount, getDiscountPercent } from "@/utils/price";
+import CtaPrice from "../blocks/CtaPrice.astro";
+
+const discount = getDiscountPercent(brandData.main.adv_price_percent);
+const { price, discountedPrice, showDiscount } = getGlobalMinPriceWithDiscount(
+  brandData.services,
+  discount,
+);
+---
+
+<section class="calculator py-8 md:py-10 lg:py-20 bg-surface-secondary" data-cmp="CalculatorForm">
+  <div class="container">
+    <div class="_calculator-inner">
+      <h2 class="_calculator-title max-w-187 mx-auto mb-8 typo-h2 balance">
+        Сколько стоит ваш штатный сотрудник?
+      </h2>
+      <p class="_calculator-title-description mb-8 text-text-secondary text-center typo-t3">
+        Калькулятор расчета зарплаты
+      </p>
+
+      <div
+        class="_calculator-form-wrap grid grid-cols-1 lg:grid-cols-[0.86fr_1.14fr] gap-10 lg:gap-20 not-last:mb-20"
+        x-data="employeeCostCalculator()"
+      >
+        <div
+          class="_calculator-inputs grid grid-cols-1 lg:grid-cols-2 gap-4 *:p-3 *:rounded-sm *:bg-surface-primary"
+        >
+          <CalcInput
+            id="calc-net-salary"
+            label="Зарплата на руки"
+            model="netSalary"
+            unit="₽"
+            slider
+            min="0"
+            max="200000"
+            step="1000"
+          />
+
+          <CalcInput
+            id="calc-work-hours"
+            label="Рабочих часов в месяц"
+            model="workHoursMonth"
+            unit="ч./мес"
+            slider
+            min="0"
+            max="300"
+          />
+
+          <CalcInput
+            id="calc-vacation"
+            label="Отпускных дней в год"
+            model="vacationDays"
+            unit="д./год"
+            slider
+            min="0"
+            max="60"
+          />
+
+          <CalcInput
+            id="calc-sick"
+            label="Больничных дней в год"
+            model="sickDays"
+            unit="д./год"
+            slider
+            min="0"
+            max="30"
+          />
+
+          <CalcInput
+            id="calc-overhead"
+            label="Реклама, подбор, бухгалтерия и т.д."
+            model="overheadPercent"
+            unit="%"
+            step="0.1"
+            colSpan="full"
+            slider
+            min="0"
+            max="100"
+          />
+
+          <CalcInput
+            id="calc-shift"
+            label="Длительность смены"
+            model="shiftDuration"
+            unit="ч."
+            colSpan="full"
+            slider
+            min="1"
+            max="24"
+          />
+
+          <CalcInput
+            id="calc-medbooks"
+            label="Медкнижки, СИЗ, обучение и т.д."
+            model="medBooksYear"
+            unit="₽/год"
+            step="100"
+            colSpan="full"
+            slider
+            min="0"
+            max="50000"
+          />
+        </div>
+
+        <div class="_calculator-result py-5 rounded-xl bg-surface-primary overflow-clip">
+          <div
+            class="_calculator-result-items grid grid-cols-1 lg:grid-cols-3 gap-3 px-5 *:flex *:flex-col *:gap-2 *:p-5 *:pb-7"
+          >
+            <div class="_calculator-result-item">
+              <span class="_label mb-2 text-text-tertiary typo-t4">Зарплата на руки</span>
+              <span>
+                <span class="_value typo-t2" x-text="fmt(netSalaryPerHour, 2)"></span>
+                <span class="_unit"> ₽/час</span>
+              </span>
+            </div>
+            <div class="_calculator-result-item">
+              <span class="_label mb-2 text-text-tertiary typo-t4">Рабочих часов</span>
+              <span>
+                <span class="_value typo-t2" x-text="fmt(annualHours)"></span>
+                <span class="_unit"> ч./год</span>
+              </span>
+            </div>
+            <div class="_calculator-result-item">
+              <span class="_label mb-2 text-text-tertiary typo-t4">НДФЛ</span>
+              <span>
+                <span class="_value typo-t2" x-text="fmt(ndflPerHour, 2)"></span>
+                <span class="_unit"> ₽/час</span>
+              </span>
+            </div>
+            <div class="_calculator-result-item">
+              <span class="_label mb-2 text-text-tertiary typo-t4">Зарплата с НДФЛ и взносами</span>
+              <span>
+                <span class="_value typo-t2" x-text="fmt(grossWithInsurancePerHour, 2)"></span>
+                <span class="_unit"> ₽/час</span>
+              </span>
+              <span class="_total typo-t4">(30%)</span>
+            </div>
+            <div class="_calculator-result-item">
+              <span class="_label mb-2 text-text-tertiary typo-t4">Все затраты на ФОТ с НДС</span>
+              <span>
+                <span class="_value typo-t2" x-text="fmt(totalCostAnnual)"></span>
+                <span class="_unit"> ₽</span>
+              </span>
+              <span class="_total typo-t4">(20%)</span>
+            </div>
+          </div>
+
+          <div
+            class="_calculator-result-separator border-t-16 border-dotted border-t-surface-secondary -mx-2"
+          >
+          </div>
+
+          <div class="_calculator-result-total p-[1.25rem_2.75rem_1.35rem_2.75rem]">
+            <p class="typo-t4 mb-4 text-text-tertiary">Итого:</p>
+            <p class="typo-h5">
+              <span class="_result-hour" x-text="fmt(totalPerHour, 2)"></span>
+              <span class="text-sm">₽</span>/час
+            </p>
+            <p class="typo-t4">Стоимость вашего сотрудника</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <CtaPrice {brandData} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  function employeeCostCalculator() {
+    return {
+      netSalary: 30000,
+      workHoursMonth: 165,
+      vacationDays: 15,
+      sickDays: 10,
+      overheadPercent: 6.5,
+      shiftDuration: 4,
+      medBooksYear: 23.21,
+
+      fmt(value, digits = 0) {
+        const n = Number(value);
+        if (!isFinite(n)) return "0";
+        return n.toLocaleString("ru-RU", {
+          minimumFractionDigits: digits,
+          maximumFractionDigits: digits,
+        });
+      },
+
+      get annualHours() {
+        const raw =
+          this.workHoursMonth * 12 - (this.vacationDays + this.sickDays) * this.shiftDuration;
+        return raw > 0 ? raw : 0;
+      },
+
+      get netSalaryPerHour() {
+        const netAnnual = this.netSalary * 12;
+        return this.annualHours ? netAnnual / this.annualHours : 0;
+      },
+
+      get grossAnnual() {
+        const grossMonthly = this.netSalary / 0.87;
+        return grossMonthly * 12;
+      },
+
+      get grossPerHour() {
+        return this.annualHours ? this.grossAnnual / this.annualHours : 0;
+      },
+
+      get insuranceAnnual() {
+        return this.grossAnnual * 0.3;
+      },
+
+      get insurancePerHour() {
+        return this.annualHours ? this.insuranceAnnual / this.annualHours : 0;
+      },
+
+      get grossWithInsurancePerHour() {
+        return this.grossPerHour + this.insurancePerHour;
+      },
+
+      get overheadAnnual() {
+        const base = this.grossAnnual + this.insuranceAnnual;
+        return base * (this.overheadPercent / 100);
+      },
+
+      get totalCostAnnualBeforeVat() {
+        return this.grossAnnual + this.insuranceAnnual + this.overheadAnnual + this.medBooksYear;
+      },
+
+      get totalCostAnnual() {
+        return this.totalCostAnnualBeforeVat * 1.2;
+      },
+
+      get totalPerHour() {
+        return this.annualHours ? this.totalCostAnnual / this.annualHours : 0;
+      },
+
+      get ndflPerHour() {
+        return this.grossPerHour - this.netSalaryPerHour;
+      },
+    };
+  }
+</script>

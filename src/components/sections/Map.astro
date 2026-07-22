@@ -1,0 +1,46 @@
+---
+import type { BrandData } from "@/types/brand";
+
+interface Props {
+  brandData: BrandData;
+  simple?: boolean;
+}
+
+const { brandData, simple = false } = Astro.props;
+---
+
+{simple && <div id="map" class="_map-body h-80 lg:h-105 rounded-2xl overflow-clip" />}
+
+{
+  !simple && (
+    <section class="map pb-20" data-cmp="Map">
+      <div class="container">
+        <h2 class="_map-title mb-8 md:12 lg:mb-16">Работаем в более чем 20 городах России</h2>
+        <div class="_map-inner">
+          <div id="map" class="_map-body h-80 lg:h-105 rounded-2xl overflow-clip" />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script is:inline>
+  const script = document.createElement("script");
+  script.src = "https://api-maps.yandex.ru/2.1/?apikey=ВАШ_API_КЛЮЧ&lang=ru_RU";
+  script.onload = () => {
+    ymaps.ready(() => {
+      const map = new ymaps.Map("map", {
+        center: [55.693644, 37.536298],
+        zoom: 16,
+      });
+
+      const placemark = new ymaps.Placemark([55.693644, 37.536298], {
+        hintContent: "Москва, ул. Власова, д. 32",
+        balloonContent: "Москва, ул. Власова, д. 32",
+      });
+
+      map.geoObjects.add(placemark);
+    });
+  };
+  document.head.appendChild(script);
+</script>

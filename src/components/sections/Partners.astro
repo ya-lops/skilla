@@ -1,0 +1,42 @@
+---
+import type { BrandData } from "@/types/brand";
+
+import { STORAGE_PATH } from "@/lib/consts";
+
+interface Props {
+  brandData: BrandData;
+  full?: boolean;
+}
+
+const { brandData, full = false } = Astro.props;
+
+// Объединяем все логотипы в один массив
+const allPartnersLogos = [...brandData.partners.default_logos, ...(brandData.partners.additional_logos || [])];
+---
+
+<section class:list={["partners", full ? "py-8 md:py-10 lg:py-20" : "py-10"]} data-cmp="Partners">
+  <div class="container">
+    <div class="_partners-inner">
+      {full && <h2 class="_partners-title mb-8 md:12 lg:mb-16 typo-h2">Мы сотрудничаем</h2>}
+
+      <div class:list={["_partners-grid", full ? "grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] lg:grid-cols-3 gap-4" : "flex flex-wrap justify-center lg:flex-nowrap gap-5 gap-y-10 lg:gap-20"]}>
+        {
+          allPartnersLogos.map((logo: any) => (
+            <div
+              class:list={[
+                "_partners-item flex items-center justify-center",
+                full ? "h-25 lg:h-50 w-full border border-outline rounded-xl bg-surface-primary" : "max-h-8 lg:max-h-20.75 max-w-37.5 grayscale opacity-60",
+              ]}
+            >
+              <img
+                class:list={["h-full w-full object-contain", full ? "max-w-[35%] max-h-[35%]" : ""]}
+                src={`${STORAGE_PATH}${logo}`}
+                alt={`Логотип партнера нашей компании`}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

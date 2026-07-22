@@ -1,0 +1,35 @@
+---
+import type { BrandData } from "@/types/brand";
+import Button from "../ui/Button.astro";
+
+interface Props {
+  brandData: BrandData;
+}
+
+const { brandData } = Astro.props;
+
+const discount = brandData.main.adv_price_percent;
+
+const firstServiceUrl = brandData.services[0].url.toLowerCase();
+---
+
+<section class="promo bg-promo-surface overflow-clip" data-cmp="Promo">
+  <div class="container relative">
+    <div class="flex items-center justify-between gap-7 max-w-[747px] mx-auto">
+      <div
+        class="absolute left-[-70px] w-[541px] h-[33px] flex items-center justify-center rotate-[15deg] text-text-primary-inverse text-xl font-bold bg-surface-blur"
+      >
+        -{discount}%
+      </div>
+
+      <div class="flex items-center gap-8 py-2">
+        <p class="text-promo-text-primary text-md font-bold">Только в сентябре</p>
+        <p class="text-promo-text-secondary typo-t4 font-medium">скидка {discount}% на все услуги</p>
+      </div>
+
+      <div class="py-2">
+        <Button href={`/${firstServiceUrl}`} variant="primary" inverse arrow="right" text="В каталог" />
+      </div>
+    </div>
+  </div>
+</section>

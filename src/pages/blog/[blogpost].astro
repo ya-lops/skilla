@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import KP from "@/components/sections/KP.astro";
+
+import { getBrandData } from "@/lib/api";
+import Breadcrumbs from "@/components/ui/Breadcrumbs.astro";
+
+export async function getStaticPaths() {
+  const brandData = await getBrandData();
+
+  return brandData.articles.map((article) => ({
+    params: { blogpost: article.url },
+    props: { article, brandData },
+  }));
+}
+
+const { article, brandData } = Astro.props;
+---
+
+<BaseLayout
+  {brandData}
+  metaTitle={article.meta_title || article.title}
+  metaDescription={article.description}
+  metaKeywords={article.keywords}
+>
+  <Breadcrumbs items={[{ label: "Главная", href: "/" }, { label: "Блог", href: "/blog" }, { label: article.title }]} />
+
+  <article class="blogpost py-8 md:py-10 lg:py-20">
+    <div class="container">
+      <div class="_blogpost-inner max-w-3xl mx-auto">
+        <h1 class="_blogpost-title typo-h2 mb-8">{article.title}</h1>
+        <time class="_blogpost-date typo-label block mb-12" datetime={article.date_create}>
+          {article.date_create}
+        </time>
+
+        <div class="_blogpost-content prose max-w-none" set:html={article.content} />
+      </div>
+    </div>
+  </article>
+
+  <KP {brandData} />
+</BaseLayout>

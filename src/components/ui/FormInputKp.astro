@@ -1,0 +1,35 @@
+---
+export interface Props {
+  id: string;
+  label: string;
+  type?: 'text' | 'tel' | 'email' | 'number' | 'password' | 'search' | 'url' | 'date';
+  placeholder?: string;
+  model?: string;
+  errorModel?: string;
+  class?: string;
+}
+
+const {
+  id,
+  label,
+  type = 'text',
+  placeholder = '',
+  model = '',
+  errorModel = '',
+  class: className = '',
+  ...rest
+} = Astro.props;
+---
+
+<div class={`flex flex-col gap-1 ${className}`}>
+  <label for={id} class="sr-only">{label}</label>
+  <input
+    id={id}
+    type={type}
+    placeholder={placeholder || label}
+    x-model={model}
+    class="p-4 border rounded-sm bg-surface-primary"
+    :class={`${errorModel} ? 'border-red-600' : 'border-outline'`}
+    {...rest}
+  />
+</div>

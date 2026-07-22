@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
+import Partners from '@/components/sections/Partners.astro';
+import Services from '@/components/sections/Services.astro';
+import CalculatorForm from '@/components/sections/CalculatorForm.astro';
+import Blog from '@/components/sections/Blog.astro';
+import KP from '@/components/sections/KP.astro';
+import FAQ from '@/components/sections/FAQ.astro';
+
+import { getBrandData } from '@/lib/api';
+
+const brandData = await getBrandData();
+---
+
+<BaseLayout brandData={brandData}>
+  <Hero {brandData} type="main"/>
+  <Partners {brandData}/>
+  <Services media="image" {brandData} />
+  <CalculatorForm {brandData} />
+  <Blog {brandData} />
+  <KP {brandData} />
+  <FAQ {brandData} />
+</BaseLayout>

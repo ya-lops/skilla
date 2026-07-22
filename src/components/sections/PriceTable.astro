@@ -1,0 +1,165 @@
+---
+import type { BrandData } from "@/types/brand";
+
+import { getDiscountedPrice, getDiscountPercent, hasDiscount } from "@/utils/price";
+
+import CtaCall from "../blocks/CtaCall.astro";
+
+interface Props {
+  brandData: BrandData;
+}
+
+const { brandData } = Astro.props;
+
+const allServices = [...brandData.services].filter((service) => service.is_active === 1);
+
+const currentPath = Astro.url.pathname;
+const normalizedPath = currentPath.replace(/\/+$/, "");
+const serviceSlug = normalizedPath.split("/").pop()?.toLowerCase();
+
+const currentService = allServices.find((s) => s.url.toLowerCase() === serviceSlug);
+
+const discountPercent = getDiscountPercent(brandData.main.adv_price_percent);
+const showDiscount = hasDiscount(discountPercent);
+---
+
+<section class="py-8 md:py-10 lg:py-20" data-cmp="PriceTable">
+  <div class="container">
+    <h1 class="_price-table-title max-w-[1134px] mx-auto mb-8 typo-h1">
+      {currentService?.name} в {brandData.main.city_rod}
+    </h1>
+    <p class="max-w-[554px] mx-auto mb-20 typo-t3 text-text-secondary text-center balance">
+      {
+        currentService?.description ||
+          "Для переезда, склада и стройки. Работаем с погрузчиками, штабелёрами, по доступной цене и без задержек."
+      }
+    </p>
+
+    <div class="_price-table-inner grid grid-col-1 lg:grid-cols-[360px_2fr] items-start gap-10">
+      <div
+        class="_service-list flex gap-4 lg:gap-0 lg:flex-col pb-2 lg:pb-0 -mx-4 lg:mx-[initial] px-4 lg:p-3 overflow-auto lg:border lg:border-outline rounded-xl"
+      >
+        {
+          allServices.map((service) => {
+            const serviceUrl = `/${service.url.toLowerCase()}`;
+            const isActive = normalizedPath === serviceUrl;
+
+            return (
+              <a
+                href={serviceUrl}
+                class:list={[
+                  "_service-link flex flex-col lg:flex-row gap-3 lg:gap-1 justify-between lg:p-3 rounded-sm typo-h5 transition-colors hover:bg-surface-secondary whitespace-nowrap lg:whitespace-normal",
+                  isActive ? "--active lg:bg-surface-secondary" : "font-medium! bg-transparent",
+                ]}
+              >
+                <span class="lg:p-3">{service.name}</span>
+              </a>
+            );
+          })
+        }
+      </div>
+
+      <div class="_service-content">
+        {
+          currentService?.services && currentService.services.length > 0 ? (
+            <>
+              <div class="_service-prices relative isolate grid grid-cols-1 gap-3 lg:gap-0 lg:grid-cols-3 lg:p-3 lg:border lg:border-outline lg:rounded-xl">
+                <div class="_service-prices-header hidden lg:grid grid-cols-subgrid col-span-full">
+                  <div class="typo-h5 p-6">Услуги</div>
+                  {showDiscount && (
+                    <div class="p-6 text-center text-text-primary-inverse">
+                      <div class="typo-h5">
+                        <p>Цена по акции</p>
+                      </div>
+                      <p class="typo-label mt-2.5">-{discountPercent}%</p>
+                    </div>
+                  )}
+                  <div class="typo-h5 p-6 text-center">Обычная цена</div>
+                </div>
+
+                <div class="_discount-highlighter hidden lg:block absolute -z-1 top-3 bottom-3 left-3 right-3 col-start-2 col-end-3 rounded-lg pointer-events-none -mx-2 bg-surface-secondary-inverse opacity-85 mix-blend-multiply" />
+
+                {currentService.services
+                  .filter((subService) => subService.name)
+                  .map((subService) => {
+                    const discountedPrice = getDiscountedPrice(subService.price, discountPercent);
+
+                    return (
+                      <div class="_price-card relative grid grid-cols-1 lg:grid-cols-subgrid col-span-full items-center">
+                        <div class="typo-h3 lg:typo-t2 text-left px-4 py-5 lg:p-6">{subService.name}</div>
+
+                        <div class="flex items-center justify-between typo-t2 px-4 lg:p-6  text-text-primary-inverse">
+                          <div class="lg:contents flex items-center justify-between w-full p-4 rounded-xl bg-surface-primary-inverse">
+                            <div class="lg:hidden text-text-secondary-inverse typo-t3">
+                              Цена по акции
+                              <br />
+                              {discountPercent}%
+                            </div>
+                            <div class="lg:w-full text-center ">
+                              от {discountedPrice} руб. / {subService.unit}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="flex items-center justify-between typo-t2 p-6 text-center">
+                          <div class="lg:hidden typo-t3 text-text-secondary">Обычная цена</div>
+                          <div class="lg:w-full p-4 lg:p-0 text-center">
+                            от {subService.price} руб. / {subService.unit}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+              <p class="mt-6 typo-t4 text-text-secondary">
+                *Цена на сайте указана минимальная. Точную сумму сообщит менеджер при просчете индивидуальных условий.
+              </p>
+            </>
+          ) : (
+            <div class="_service-empty p-10 text-center text-text-tertiary">
+              <p>Для данной услуги цены уточняются. Свяжитесь с нами для расчёта стоимости.</p>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <CtaCall {brandData} />
+  </div>
+</section>
+
+<style is:global>
+  [data-cmp="PriceTable"] {
+    ._service-link.--active {
+      &::after {
+        content: "";
+        height: 3px;
+        width: 100%;
+        background: var(--color-accent);
+
+        @media (width >= 64rem) {
+          height: 100%;
+          width: 3px;
+        }
+      }
+    }
+
+    ._price-card {
+      border-radius: 0.75rem;
+      background: var(--color-surface-secondary);
+
+      @media (width >= 64rem) {
+        background: none;
+
+        &:nth-child(odd):after {
+          content: "";
+          position: absolute;
+          z-index: -2;
+          inset: 0;
+          background: var(--color-surface-secondary);
+          border-radius: 0.75rem;
+        }
+      }
+    }
+  }
+</style>
