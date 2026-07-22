@@ -25,10 +25,10 @@ const showDiscount = hasDiscount(discountPercent);
 
 <section class="py-8 md:py-10 lg:py-20" data-cmp="PriceTable">
   <div class="container">
-    <h1 class="_price-table-title max-w-[1134px] mx-auto mb-8 typo-h1">
+    <h1 class="_price-table-title mb-8 typo-h1">
       {currentService?.name} в {brandData.main.city_rod}
     </h1>
-    <p class="max-w-[554px] mx-auto mb-20 typo-t3 text-text-secondary text-center balance">
+    <p class="mb-20 typo-t3 text-text-secondary text-center balance">
       {
         currentService?.description ||
           "Для переезда, склада и стройки. Работаем с погрузчиками, штабелёрами, по доступной цене и без задержек."
@@ -67,7 +67,7 @@ const showDiscount = hasDiscount(discountPercent);
                 <div class="_service-prices-header hidden lg:grid grid-cols-subgrid col-span-full">
                   <div class="typo-h5 p-6">Услуги</div>
                   {showDiscount && (
-                    <div class="p-6 text-center text-text-primary-inverse">
+                    <div class="p-6 text-center text-table-highlight-heading">
                       <div class="typo-h5">
                         <p>Цена по акции</p>
                       </div>
@@ -77,7 +77,7 @@ const showDiscount = hasDiscount(discountPercent);
                   <div class="typo-h5 p-6 text-center">Обычная цена</div>
                 </div>
 
-                <div class="_discount-highlighter hidden lg:block absolute -z-1 top-3 bottom-3 left-3 right-3 col-start-2 col-end-3 rounded-lg pointer-events-none -mx-2 bg-surface-secondary-inverse opacity-85 mix-blend-multiply" />
+                <div class="_discount-highlighter hidden lg:block absolute -z-1 top-3 bottom-3 left-3 right-3 col-start-2 col-end-3 rounded-lg pointer-events-none -mx-2 bg-table-highlight opacity-85 mix-blend-multiply" />
 
                 {currentService.services
                   .filter((subService) => subService.name)
@@ -88,7 +88,7 @@ const showDiscount = hasDiscount(discountPercent);
                       <div class="_price-card relative grid grid-cols-1 lg:grid-cols-subgrid col-span-full items-center">
                         <div class="typo-h3 lg:typo-t2 text-left px-4 py-5 lg:p-6">{subService.name}</div>
 
-                        <div class="flex items-center justify-between typo-t2 px-4 lg:p-6  text-text-primary-inverse">
+                        <div class="flex items-center justify-between typo-t2 px-4 lg:p-6  text-table-highlight-heading">
                           <div class="lg:contents flex items-center justify-between w-full p-4 rounded-xl bg-surface-primary-inverse">
                             <div class="lg:hidden text-text-secondary-inverse typo-t3">
                               Цена по акции
