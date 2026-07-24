@@ -56,79 +56,24 @@ const stepsIcons = [
     <div class="_how-we-work-inner">
       <h2 class="_how-we-work-title pb-16">Как мы работаем</h2>
 
-      {
-        type == "cards" && (
-          <div class="_how-we-work-grid grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {stepsImages.map((step: any, index: number) => (
-              <div class="_how-we-work_step flex lg:flex-col items-center lg:items-start gap-2 lg:gap-7 rounded-x bg-surface-primary overflow-clip">
-                <div class="_content p-8">
-                  <div class="_number mb-6 text-text-tertiary text-left typo-h3">{index + 1}.</div>
-                  <h3 class="_title typo-t1 text-left balance">{step.title}</h3>
-                </div>
-                <img
-                  class="_image order-first max-w-[33%] lg:order-last mt-auto pointer-events-none"
-                  src={step.image}
-                  alt=""
-                  loading="lazy"
-                />
+      <div class="_how-we-work-grid grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {
+          stepsImages.map((step: any, index: number) => (
+            <div class="_how-we-work_step flex lg:flex-col items-center lg:items-start gap-2 lg:gap-7 rounded-x bg-surface-primary overflow-clip">
+              <div class="_content p-8">
+                <div class="_number mb-6 text-text-tertiary text-left typo-h3">{index + 1}.</div>
+                <h3 class="_title typo-t1 text-left balance">{step.title}</h3>
               </div>
-            ))}
-          </div>
-        )
-      }
-
-      {
-        type == "timeline" && (
-          <div class="_how-we-work-grid grid grid-cols-1 lg:grid-cols-4 items-start gap-6">
-            {stepsIcons.map((step: any, index: number) => (
-              <div class="_how-we-work_step grid grid-cols-[1fr_auto_84px] lg:grid-cols-1 items-start gap-3 lg:gap-7">
-                <div class="flex shrink-0 order-last lg:order-1">
-                  <Fragment set:html={step.image} />
-                </div>
-
-                <div class="_separator lg:translate-x-9.5 flex flex-col lg:flex-row items-center gap-6 w-full lg:my-15 order-2 translate-y-[47%]">
-                  <div class="_dot size-1.5 lg:size-3 rounded-full bg-red-500" />
-                  {index + 1 < stepsIcons.length && <div class="_line flex-1 h-full w-0.5 lg:h-[2px] lg:w-auto bg-red-500" />}
-                </div>
-
-                <div class="_content lg:pl-10 order-1 lg:order-3">
-                  <div class="_number mb-6 text-accent text-left typo-h3">{index + 1}.</div>
-                  <h3 class="_title typo-t1 text-left balance">{step.title}</h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        )
-      }
-
-      {
-        type == "flow" && (
-          <div class="_how-we-work-grid grid grid-cols-1 lg:grid-cols-[repeat(3,173px_100px)_173px] gap-6">
-            {stepsIcons.map((step: any, index: number) => (
-              <>
-                <div class="flex lg:flex-col items-center lg:items-start gap-2 lg:gap-7 rounded-x bg-surface-primary overflow-clip">
-                  <div class="flex shrink-0 order-last lg:order-1">
-                    <Fragment set:html={step.image} />
-                  </div>
-                  <h3 class="_title typo-t1 text-left balance">{step.title}</h3>
-                </div>
-
-                {index + 1 < stepsIcons.length && (
-                  <div class="_separator">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11.6076 4.10724C11.9329 3.78188 12.4605 3.78205 12.786 4.10724L18.0895 9.41078C18.415 9.73622 18.415 10.2637 18.0895 10.5892L12.786 15.8927C12.4605 16.2179 11.9329 16.2181 11.6076 15.8927C11.2822 15.5674 11.2824 15.0398 11.6076 14.7143L15.4886 10.8333L2.50033 10.8333C2.04009 10.8333 1.66699 10.4602 1.66699 9.99998C1.66699 9.53974 2.04009 9.16664 2.50033 9.16664L15.4886 9.16664L11.6076 5.28562C11.2824 4.96016 11.2822 4.43259 11.6076 4.10724Z"
-                        fill="black"
-                        fill-opacity="0.4"
-                      />
-                    </svg>
-                  </div>
-                )}
-              </>
-            ))}
-          </div>
-        )
-      }
+              <img
+                class="_image order-first max-w-[33%] lg:order-last mt-auto pointer-events-none"
+                src={step.image}
+                alt=""
+                loading="lazy"
+              />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>

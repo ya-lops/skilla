@@ -15,13 +15,14 @@ const firstServiceUrl = brandData.services[0].url.toLowerCase();
 
 {
   type == "main" && (
-    <section class="hero grid grid-cols-[100%] min-h-[730px] bg-hero-main-surface text-hero-main-text overflow-clip isolate" data-cmp="Hero">
-      <div class="container h-full">
-        <div class="_hero-inner relative grid grid-cols-1 lg:grid-cols-2 items-start lg:items-center h-full py-8">
-          <div class="_hero-content flex flex-col gap-10">
-            <h1 class="_hero-title typo-h1 text-left text-balance">
-              Рабочий персонал от лидера рынка в России
-            </h1>
+    <section
+      class="hero grid grid-cols-[100%] min-h-[730px] bg-hero-main-surface text-hero-main-text overflow-clip"
+      data-cmp="Hero"
+    >
+      <div class="container h-full isolate">
+        <div class="_hero-inner grid grid-cols-1 lg:grid-cols-2 items-start lg:items-center h-full">
+          <div class="_hero-content flex flex-col gap-6 lg:gap-10 pt-8 lg:py-8">
+            <h1 class="_hero-title typo-h1 text-left text-balance">Рабочий персонал от лидера рынка в России</h1>
 
             <HeroFeatures />
 
@@ -34,15 +35,9 @@ const firstServiceUrl = brandData.services[0].url.toLowerCase();
                 Предоставим персонал для разных видов работ — быстро, качественно и вовремя
               </p>
             </div>
-
-            <div class="_hero-image max-h-[200px] md:max-h-[350px] lg:max-h-[100%] mt-8 lg:mt-0 lg:absolute -z-1 lg:-right-50 lg:bottom-0">
-              <img
-                class="scale-200 md:scale-125 lg:scale-none"
-                src="/images/hero-main.webp"
-                alt=""
-                fetchpriority="high"
-              />
-            </div>
+          </div>
+          <div class="relative -z-1 self-end justify-self-end lg:origin-bottom scale-150 lg:scale-125 pointer-none">
+            <img class="" src="/images/hero-main.webp" alt="" fetchpriority="high" />
           </div>
         </div>
       </div>
@@ -52,31 +47,28 @@ const firstServiceUrl = brandData.services[0].url.toLowerCase();
 
 {
   type == "about" && (
-    <section class="hero grid grid-cols-[100%] min-h-[730px] bg-hero-about-surface text-hero-about-text overflow-clip isolate" data-cmp="Hero">
+    <section
+      class="hero grid grid-cols-[100%] min-h-[600px] bg-hero-about-surface text-hero-about-text overflow-clip isolate"
+      data-cmp="Hero"
+    >
       <div class="container h-full">
-        <div class="_hero-inner relative grid grid-cols-1 lg:grid-cols-2 items-start lg:items-center h-full py-8">
-          <div class="_hero-content flex flex-col gap-10">
-            <h1 class="_hero-title typo-h1 text-left text-balance">
-              Успешно оказываем услуги 15 лет
-            </h1>
+        <div class="_hero-inner relative grid grid-cols-1 lg:grid-cols-2 items-start lg:items-center h-full ">
+          <div class="_hero-content flex flex-col gap-10 py-8">
+            <h1 class="_hero-title typo-h1 text-left text-balance">Успешно оказываем услуги 15 лет</h1>
 
             <p class="_hero-description typo-t3 max-w-92 text-balance">
-              Мы предлагаем надёжные услуги по грузоперевозкам и предоставлению разнорабочих.
-              Работаем оперативно и учитываем потребности каждого клиента.
+              Мы предлагаем надёжные услуги по грузоперевозкам и предоставлению разнорабочих. Работаем оперативно и учитываем потребности
+              каждого клиента.
             </p>
 
             <div class="_hero-actions flex items-center gap-8">
               <div class="_hero-actions-items">
-                <Button
-                  href={`/${firstServiceUrl}`}
-                  variant="secondary"
-                  text="Наши услуги"
-                />
+                <Button href={`/${firstServiceUrl}`} variant="secondary" text="Наши услуги" />
               </div>
             </div>
           </div>
 
-          <div class="_hero-image lg:absolute -z-1 scale-140 lg:scale-100 lg:-right-50 bottom-0">
+          <div class="_hero-image self-end origin-bottom lg:scale-150">
             <img src="/images/hero-about.webp" alt="" fetchpriority="high" />
           </div>
         </div>

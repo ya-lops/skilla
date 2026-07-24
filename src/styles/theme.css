@@ -64,7 +64,7 @@
   --color-footer-top-surface: var(--color-surface-primary-inverse);
   --color-footer-top-text: var(--color-text-primary-inverse);
   --color-footer-bottom-surface: var(--color-surface-secondary-inverse);
-  --color-footer-bottom-text: var(--color-text-tertiary);
+  --color-footer-bottom-text: var(--color-text-tertiary-inverse);
 
   --color-appskilla-surface: hsla(240, 3%, 15%, 1);
   --color-appskilla-text: var(--color-text-primary-inverse);

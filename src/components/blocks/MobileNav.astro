@@ -98,8 +98,12 @@ const { brandData, links } = Astro.props;
       </div>
 
       <div class="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 items-center">
-        <Button href="#personal" text="Личный кабинет" variant="secondary" inverse />
         <Button href="#contact" text="Позвонить" variant="primary" inverse />
+        {/* Условие для отображения личного кабинета, нужно брать из админки */}
+        {/* сейчас просто написано чтото рандомное */}
+        {/* в SiteHeader.astro тоже */}
+
+        {brandData.main?.showPersonal && <Button href="#personal" text="Личный кабинет" variant="secondary" inverse />}
       </div>
     </div>
   </div>

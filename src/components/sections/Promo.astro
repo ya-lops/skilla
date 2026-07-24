@@ -15,20 +15,22 @@ const firstServiceUrl = brandData.services[0].url.toLowerCase();
 
 <section class="promo bg-promo-surface overflow-clip" data-cmp="Promo">
   <div class="container relative">
-    <div class="flex items-center justify-between gap-7 max-w-[747px] mx-auto">
+    <div class="flex items-center justify-end lg:justify-between gap-7 max-w-[747px] lg:mx-auto">
       <div
-        class="absolute left-[-70px] w-[541px] h-[33px] flex items-center justify-center rotate-[15deg] text-text-primary-inverse text-xl font-bold bg-surface-blur"
+        class="absolute left-[-60px] lg:left-[0] translate-x-[-30%] lg:translate-x-[-20%] w-[541px] h-[33px] flex items-center justify-center rotate-[27deg] lg:rotate-[15deg] text-text-primary-inverse text-xl font-bold bg-surface-blur"
       >
         -{discount}%
       </div>
 
-      <div class="flex items-center gap-8 py-2">
+      <div class="flex flex-col lg:flex-row items-center gap-x-8 py-2">
         <p class="text-promo-text-primary text-md font-bold">Только в сентябре</p>
         <p class="text-promo-text-secondary typo-t4 font-medium">скидка {discount}% на все услуги</p>
       </div>
 
       <div class="py-2">
-        <Button href={`/${firstServiceUrl}`} variant="primary" inverse arrow="right" text="В каталог" />
+        <Button href={`/${firstServiceUrl}`} variant="primary" inverse arrow="right" class="!h-[38px]">
+          <span class="hidden lg:block">В каталог</span>
+        </Button>
       </div>
     </div>
   </div>

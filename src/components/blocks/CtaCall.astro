@@ -19,7 +19,7 @@ const { brandData } = Astro.props;
     Свяжитесь с нами и мы расчитаем точную стоимость под ваши задачи
   </p>
 
-  <div class="flex">
+  <div class="flex flex-col lg:flex-row gap-6">
     <Button class="w-full lg:w-auto" href="#contact" variant="accent" text="Позвонить" />
 
     <BlockMessengersLinks class="text-text-secondary-inverse" {brandData} />

@@ -11,13 +11,13 @@ const { brandData } = Astro.props;
 
 <section class="bg-kp-surface overflow-clip" data-cmp="KP">
   <div class="container">
-    <div class="grid grid-cols-1 md:grid-cols-[340px_1fr] xl:grid-cols-[340px_1fr_365px] gap-3 lg:gap-20 isolate">
+    <div class="grid grid-cols-1 md:grid-cols-[340px_1fr] xl:grid-cols-[340px_1fr] gap-3 lg:gap-20 isolate">
       
       <div class="order-last lg:order-first self-end">
-        <img class="relative -z-1 origin-bottom pointer-events-none" src="/images/kp-image.webp" alt="" loading="lazy" />
+        <img class="origin-bottom lg:scale-130 pointer-events-none" src="/images/kp-image.webp" alt="" loading="lazy" />
       </div>
 
-      <div class="flex flex-col gap-3 xl:contents">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_365px] gap-4">
         <h2 class="xl:max-w-132 py-5 lg:py-12.5 text-left typo-h3 text-kp-text *:text-kp-text-accent *:not-italic">
           Бесплатно <em>сделаем</em> коммерческое предложение <em>индивидуально под ваши потребности</em>
         </h2>
