@@ -1,6 +1,11 @@
 @import "tailwindcss";
-
+@import "./fonts.css";
 @import "./theme.css";
+
+:root {
+  --site-font-base: 'Mulish', sans-serif;
+  --site-font-heading: 'Manrope', sans-serif;
+}
 
 @utility font-base {
   font-family: var(--site-font-base);

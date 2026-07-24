@@ -20,11 +20,11 @@ import Button from "@/components/ui/Button.astro";
       <p class="typo-t4 text-text-primary-inverse">
         Мы используем файлы cookie, а также сервисы аналитики, такие как Яндекс.Метрика, для работы сайта, анализа трафика и персонализации
         контента. Продолжая использовать сайт, вы соглашаетесь с обработкой ваших персональных данных в соответствии с нашей 
-        <a href="#policy-link" class="underline">Политикой в отношении обработки персональных данных</a>.
+        <a href="/policy" class="underline">Политикой в отношении обработки персональных данных</a>.
         Если вы не согласны, пожалуйста, прекратите использование Сайта.
       </p>
       <div class="flex gap-4 shrink-0">
-        <Button tag="button" @click="decline()" variant="secondary" text="Отказаться"/>
+        <Button tag="button" @click="decline()" variant="secondary" inverse text="Отказаться"/>
         <Button tag="button" @click="accept()" variant="secondary" inverse text="Согласен"/>
       </div>
     </div>

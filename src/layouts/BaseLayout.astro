@@ -45,13 +45,18 @@ const { metaTitle, metaDescription, metaKeywords } = Astro.props;
     <meta name="keywords" content={metaKeywords || pageMeta?.keywords || defaultMeta?.keywords || ""} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
+
     <script defer src="/scripts/alpinejs.min.js"></script>
     <script defer src="/scripts/fancybox.umd.js"></script>
     <link rel="stylesheet" href="/scripts/fancybox.css" />
 
-    <Font cssVariable="--site-font-base" preload />
-    <Font cssVariable="--site-font-heading" preload />
+    <link rel="preload" href="/fonts/mulish-v18-cyrillic_latin-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/mulish-v18-cyrillic_latin-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/mulish-v18-cyrillic_latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-v20-cyrillic_cyrillic-ext_latin-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-v20-cyrillic_cyrillic-ext_latin-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-v20-cyrillic_cyrillic-ext_latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-v20-cyrillic_cyrillic-ext_latin-700.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     {brandData.main.adv_price_percent && <Promo {brandData} />}
@@ -66,7 +71,7 @@ const { metaTitle, metaDescription, metaKeywords } = Astro.props;
 
     <CookieConsent />
     <BlockToast />
-    <ContactModalForm {brandData}/>
+    <ContactModalForm {brandData} />
 
     <BlockToastScript />
     <CookieConsentScript />

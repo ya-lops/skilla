@@ -41,42 +41,4 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-
-  fonts: [
-    {
-      provider: fontProviders.google(),
-      name: "Mulish",
-      cssVariable: "--site-font-base",
-      subsets: ["latin", "cyrillic"],
-      weights: [400, 500, 600],
-      styles: ["normal"],
-      fallbacks: [
-        "-apple-system",
-        "BlinkMacSystemFont",
-        "Segoe UI",
-        "Roboto",
-        "Helvetica Neue",
-        "Arial",
-        "sans-serif",
-      ],
-    },
-
-    {
-      provider: fontProviders.google(),
-      name: "Manrope",
-      cssVariable: "--site-font-heading",
-      subsets: ["latin", "cyrillic"],
-      weights: [500, 600, 700],
-      styles: ["normal"],
-      fallbacks: [
-        "-apple-system",
-        "BlinkMacSystemFont",
-        "Segoe UI",
-        "Roboto",
-        "Helvetica Neue",
-        "Arial",
-        "sans-serif",
-      ],
-    },
-  ],
 });
