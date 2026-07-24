@@ -26,6 +26,10 @@ const {
 } = Astro.props;
 
 const colSpanClass = colSpan === "full" ? "col-span-full" : "";
+
+const sliderStyle = slider 
+  ? `\`width: \${(((${model} - ${min}) / (${max} - ${min})) * 100)}%\``
+  : '';
 ---
 
 <div class:list={["flex flex-col gap-1.5", colSpanClass, slider && "relative pb-2"]}>
@@ -36,15 +40,18 @@ const colSpanClass = colSpan === "full" ? "col-span-full" : "";
   </div>
 
   {slider && (
-    <input
-      type="range"
-      x-model.number={model}
-      min={min}
-      max={max}
-      step={step}
-      class="absolute bottom-0 left-0 w-full h-[2px] appearance-none bg-outline cursor-pointer
-        [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-none [&::-webkit-slider-thumb]:shadow-sm
-        [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:cursor-pointer"
-    />
+    <div class="absolute bottom-0 left-0 w-full h-[2px] rounded-full bg-outline">
+      <div class="h-full rounded-full bg-accent transition-all duration-150" x-bind:style={sliderStyle}></div>
+      <input
+        type="range"
+        x-model.number={model}
+        min={min}
+        max={max}
+        step={step}
+        class="absolute top-1/2 left-0 -translate-y-1/2 w-full h-4 appearance-none bg-transparent cursor-pointer
+          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-none [&::-webkit-slider-thumb]:shadow-sm
+          [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:cursor-pointer"
+      />
+    </div>
   )}
 </div>

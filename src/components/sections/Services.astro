@@ -13,6 +13,8 @@ interface Props {
 
 const { brandData, media = "image" } = Astro.props;
 
+const firstServiceUrl = brandData.services[0].url.toLowerCase();
+
 // Функция для поиска подуслуги с минимальной ценой
 function getMinPriceService(subServices: Array<{ price: string; unit: string; name: string }>) {
   return subServices.reduce((min, current) => (parseFloat(current.price) < parseFloat(min.price) ? current : min));
@@ -32,6 +34,7 @@ const serviceIcons = ["office", "cargo", "helmet"];
       {
         brandData.services
           .filter((service) => service.is_active === 1)
+          .slice(0, 7)
           .map((service, index) => {
             const minService = getMinPriceService(service.services);
             const discountedPrice = getDiscountedPrice(minService.price, discount);
@@ -82,6 +85,9 @@ const serviceIcons = ["office", "cargo", "helmet"];
             );
           })
       }
+    </div>
+    <div class="flex items-center justify-center gap-4 mt-16">
+      <Button href={firstServiceUrl} variant="secondary" text="Все услуги" arrow="right" />
     </div>
   </div>
 </section>
